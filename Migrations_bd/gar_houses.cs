@@ -10,38 +10,38 @@ namespace Migrations_bd
     {
         public long id {get; set;}
 
-        public long oBJECTID {get; set;}
+        public long OBJECTID {get; set;}
 
-        public string oBJECTGUID {get; set;}
+        public string OBJECTGUID {get; set;}
 
-        public long cHANGEID {get; set;}
+        public long CHANGEID {get; set;}
 
-        public string hOUSENUM {get; set;}
+        public string HOUSENUM {get; set;}
 
-        public string aDDNUM1 {get; set;}
+        public string ADDNUM1 {get; set;}
 
-        public string aDDNUM2 {get; set;}
+        public string ADDNUM2 {get; set;}
 
-        public string hOUSETYPE {get; set;}
+        public string HOUSETYPE {get; set;}
 
-        public string aDDTYPE1 {get; set;}
+        public string ADDTYPE1 {get; set;}
 
-        public string aDDTYPE2 {get; set;}
+        public string ADDTYPE2 {get; set;}
 
-        public string oPERTYPEID {get; set;}
+        public string OPERTYPEID {get; set;}
 
-        public long pREVID {get; set;}
+        public long PREVID {get; set;}
 
-        public long nEXTID {get; set;}
+        public long NEXTID {get; set;}
 
-        public System.DateTime uPDATEDATE {get; set;}
+        public System.DateTime UPDATEDATE {get; set;}
 
-        public System.DateTime sTARTDATE {get; set;}
+        public System.DateTime STARTDATE {get; set;}
 
-        public System.DateTime eNDDATE {get; set;}
+        public System.DateTime ENDDATE {get; set;}
 
-        public HOUSESHOUSEISACTUAL iSACTUAL {get; set;}
+        public HOUSESHOUSEISACTUAL ISACTUAL {get; set;}
 
-        public HOUSESHOUSEISACTIVE iSACTIVE {get; set;}
+        public HOUSESHOUSEISACTIVE ISACTIVE {get; set;}
     }
 }

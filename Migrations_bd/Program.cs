@@ -9,6 +9,7 @@ using System.Data;
 using System.Linq;
 using Npgsql;
 using System.Threading;
+using System.Data.Entity;
 
 namespace Migrations_bd
 {

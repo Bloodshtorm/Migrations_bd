@@ -10,35 +10,34 @@ namespace Migrations_bd
     {
         public long id {get; set;}
 
-        public long oBJECTID {get; set;}
+        public long OBJECTID {get; set;}
 
-        public long pARENTOBJID {get; set;}
+        public long PARENTOBJID {get; set;}
 
-        public long cHANGEID {get; set;}
+        public long CHANGEID {get; set;}
 
-        public string rEGIONCODE {get; set;}
+        public string REGIONCODE {get; set;}
 
-        public string aREACODE {get; set;}
+        public string AREACODE {get; set;}
 
-        public string cITYCODE {get; set;}
+        public string CITYCODE {get; set;}
 
-        public string pLACECODE {get; set;}
+        public string PLACECODE {get; set;}
 
-        public string pLANCODE {get; set;}
+        public string PLANCODE {get; set;}
 
-        public string sTREETCODE {get; set;}
+        public string STREETCODE {get; set;}
 
-        public long pREVID {get; set;}
+        public long PREVID {get; set;}
 
+        public long NEXTID {get; set;}
 
-        public long nEXTID {get; set;}
+        public System.DateTime UPDATEDATE {get; set;}
 
-        public System.DateTime uPDATEDATE {get; set;}
+        public System.DateTime STARTDATE {get; set;}
 
-        public System.DateTime sTARTDATE {get; set;}
+        public System.DateTime ENDDATE {get; set;}
 
-        public System.DateTime eNDDATE {get; set;}
-
-        public ITEMSITEMISACTIVE iSACTIVE {get; set;}
+        public ITEMSITEMISACTIVE ISACTIVE {get; set;}
     }
 }
