@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Xml;
-using System.Xml.Serialization;
-using System.Xml.Linq;
-using System.Collections.Generic;
-using System.IO;
-using static Migrations_bd.PereKid;
 using System.Data;
+using System.IO;
 using System.Linq;
-using Npgsql;
-using System.Threading;
-using System.Data.Entity;
+using System.Xml;
+using System.Xml.Linq;
+using System.Xml.Serialization;
 
 namespace Migrations_bd
 {
@@ -17,98 +12,107 @@ namespace Migrations_bd
     {
         static void Main(string[] args)
         {
-         
-            Console.Read();
-
-
+            System.Diagnostics.Stopwatch.StartNew();
             XmlDocument xDocADDR = new XmlDocument();
-
             xDocADDR.Load(@"C:\Users\v\Desktop\1\AS_ADDR_OBJ.XML");
             // получим корневой элемент
             XElement rootElement = XElement.Parse(xDocADDR.InnerXml);
             xDocADDR = new XmlDocument();
             // обход всех узлов в корневом элементе
-
             ADDRESSOBJECTS addresobjs = DeserializeAddrObjs(rootElement);
             rootElement = null;
-            using (ApplicationContext db = new ApplicationContext())
-            {
-                foreach (var obj in addresobjs.OBJECT.Where(x=> x.ISACTUAL == ADDRESSOBJECTSOBJECTISACTUAL.Item1))
-                {
-                    gar_address_objects user1 = new gar_address_objects 
-                    { 
-                        ISACTIVE = obj.ISACTIVE, 
-                        ID = obj.ID, 
-                        NAME = obj.NAME,
-                        CHANGEID = obj.CHANGEID,
-                        ENDDATE = obj.ENDDATE,
-                        ISACTUAL = obj.ISACTUAL,
-                        LEVEL = obj.LEVEL,
-                        NEXTID = obj.NEXTID,
-                        OBJECTGUID = obj.OBJECTGUID,
-                        OBJECTID = obj.OBJECTID,
-                        OPERTYPEID = obj.OPERTYPEID,
-                        PREVID = obj.PREVID,
-                        STARTDATE = obj.STARTDATE,
-                        TYPENAME = obj.TYPENAME,
-                        UPDATEDATE = obj.UPDATEDATE
-                    };
-                    db.gar_AddObjCon.Add(user1);
-                }
-                // создаем два объекта User
-              
-                // добавляем их в бд
-                db.SaveChanges();
-                Console.WriteLine("Объекты успешно сохранены");
-
-                // получаем объекты из бд и выводим на консоль
-                var users = db.gar_AddObjCon.ToList();
-                Console.WriteLine("Список объектов:");
-                foreach (gar_address_objects u in users)
-                {
-                    Console.WriteLine($"{u.ID}.{u.NAME} - {u.ISACTIVE}");
-                }
-            }
-         
-            
-            //xDocADDR = new XmlDocument();
-            //xDocADDR.Load(@"C:\Users\v\Desktop\1\AS_HOUSEs.XML");
-            //// получим корневой элемент
-            ////XElement rootElementHouse = XElement.Parse(xDocADDR.InnerXml);
-            //XElement rootElementHouse = XElement.Parse("HOUSES");
-            //// обход всех узлов в корневом элементе
-            //DataTable tableHOUSES = new DataTable();
-            //tableHOUSES.Columns.Add("HousesID", typeof(String));
-            //tableHOUSES.Columns.Add("HousesGUI", typeof(String));
-            //tableHOUSES.Columns.Add("HousesNum", typeof(String));
-            //tableHOUSES.Columns.Add("HousesISActiv", typeof(String));
-            //tableHOUSES.Columns.Add("HousesISActual", typeof(String));
-            //HOUSES Houseobj = DeserializeHouses(rootElementHouse);
-            
-            //NpgsqlConnection con = new NpgsqlConnection(conn_param);
-            ////con.Open();
-            //NpgsqlCommand cmd = new NpgsqlCommand();
-            //foreach (var obj in Houseobj.HOUSE)
+            //using (ApplicationContext db = new ApplicationContext())
+            ApplicationContext db = new ApplicationContext();
             //{
-            //    var data = obj.PREVID;
+            foreach (var obj in addresobjs.OBJECT.Where(x => x.ISACTUAL == ADDRESSOBJECTSOBJECTISACTUAL.Item1).Where(x => x.ISACTIVE == ADDRESSOBJECTSOBJECTISACTIVE.Item1))
+            {
+                gar_address_objects gar_addr_obj = new gar_address_objects
+                {
+                    ISACTIVE = obj.ISACTIVE,
+                    ID = obj.ID,
+                    NAME = obj.NAME,
+                    CHANGEID = obj.CHANGEID,
+                    ENDDATE = obj.ENDDATE,
+                    ISACTUAL = obj.ISACTUAL,
+                    LEVEL = obj.LEVEL,
+                    NEXTID = obj.NEXTID,
+                    OBJECTGUID = obj.OBJECTGUID,
+                    OBJECTID = obj.OBJECTID,
+                    OPERTYPEID = obj.OPERTYPEID,
+                    PREVID = obj.PREVID,
+                    STARTDATE = obj.STARTDATE,
+                    TYPENAME = obj.TYPENAME,
+                    UPDATEDATE = obj.UPDATEDATE
+                };
+                db.gar_AddObjCon.Add(gar_addr_obj);
+            }
+            addresobjs = null;
 
-            //    DataRow dr2 = tableHOUSES.NewRow();
-            //    dr2["HousesID"] = long.Parse(obj.OBJECTID.ToString());
-            //    dr2["HousesGUI"] = Guid.Parse(obj.OBJECTGUID.ToString());
-            //    dr2["HousesNum"] = obj.HOUSENUM.ToString();
-            //    dr2["HousesISActiv"] = obj.ISACTIVE.ToString();
-            //    dr2["HousesISActual"] = obj.ISACTUAL.ToString();
-            //    tableHOUSES.Rows.Add(dr2);
+            xDocADDR = null;
+            xDocADDR = new XmlDocument();
+            xDocADDR.Load(@"C:\Users\v\Desktop\1\AS_HOUSEs.XML");
 
-            //    cmd = new NpgsqlCommand("Insert into public.testtable(house_guid, house_num) value(" + obj.ADDNUM1.ToString() + ", " + obj.HOUSENUM.ToString() + ") ;",con);
-            //    /*
-            //    HousesID.Add(long.Parse(obj.OBJECTID.ToString()));
-            //    HousesGUID.Add(Guid.Parse(obj.OBJECTGUID.ToString()));
-            //    HousesISACTIVE.Add(obj.ISACTIVE.ToString());
-            //    HousesISACTUAL.Add(obj.ISACTUAL.ToString());
-            //    HousesNum.Add((obj.ISACTUAL.ToString()));
-            //    */
-            //}
+            rootElement = XElement.Parse(xDocADDR.InnerXml);
+            HOUSES Houseobj = DeserializeHouses(rootElement);
+            rootElement = null;
+
+            foreach (var house in Houseobj.HOUSE.Where(x => x.ISACTIVE == HOUSESHOUSEISACTIVE.Item1))
+            {
+                gar_houses gar_house = new gar_houses
+                {
+                    id = house.ID,
+                    OBJECTID = house.OBJECTID,
+                    HOUSETYPE = house.HOUSETYPE,
+                    CHANGEID = house.CHANGEID,
+                    HOUSENUM = house.HOUSENUM,
+                    ADDNUM1 = house.ADDNUM1,
+                    ADDNUM2 = house.ADDNUM2,
+                    ADDTYPE1 = house.ADDTYPE1,
+                    ADDTYPE2 = house.ADDTYPE2,
+                    PREVID = house.PREVID,
+                    NEXTID = house.NEXTID,
+                    ENDDATE = house.ENDDATE,
+                    ISACTUAL = house.ISACTUAL,
+                    ISACTIVE = house.ISACTIVE,
+                    OBJECTGUID = house.OBJECTGUID,
+                    OPERTYPEID = house.OPERTYPEID,
+                    STARTDATE = house.STARTDATE,
+                    UPDATEDATE = house.UPDATEDATE
+                };
+                db.gar_HousesCon.Add(gar_house);
+            }
+            xDocADDR = null;
+            xDocADDR = new XmlDocument();
+            xDocADDR.Load(@"C:\Users\v\Desktop\1\AS_HOUSEs.XML");
+
+            rootElement = XElement.Parse(xDocADDR.InnerXml);
+            ITEMS Adm_Delobj = DeserializeITEM(rootElement);
+            rootElement = null;
+            foreach (var adm_item in Adm_Delobj.ITEM)
+            {
+                gar_adm_hier gar_item = new gar_adm_hier
+                {
+                    id = adm_item.ID,
+                    OBJECTID = adm_item.OBJECTID,
+                    PARENTOBJID = adm_item.PARENTOBJID,
+                    CHANGEID = adm_item.CHANGEID,
+                    REGIONCODE = adm_item.REGIONCODE,
+                    AREACODE = adm_item.AREACODE,
+                    CITYCODE = adm_item.CITYCODE,
+                    PLACECODE = adm_item.PLACECODE,
+                    PLANCODE = adm_item.PLANCODE,
+                    STREETCODE = adm_item.STREETCODE,
+                    PREVID = adm_item.PREVID,
+                    NEXTID = adm_item.NEXTID,
+                    UPDATEDATE = adm_item.UPDATEDATE,
+                    STARTDATE = adm_item.STARTDATE,
+                    ENDDATE = adm_item.ENDDATE,
+                    ISACTIVE = adm_item.ISACTIVE
+                };
+                db.gar_AdmHierCon.Add(gar_item);
+            }
+
+            db.SaveChanges();
             //xDocADDR = new XmlDocument();
             //xDocADDR.Load("C:/Users/Dmitry/Desktop/AS_ADM_HIER.XML");
             //// получим корневой элемент
@@ -137,8 +141,6 @@ namespace Migrations_bd
         {
             StringReader reader = new StringReader(element.ToString());
             XmlSerializer xmlSerializer = new XmlSerializer(typeof(ADDRESSOBJECTS));
-            //var xmlSerial = xmlSerializer;
-            //var xmlSeia765l = (ADDRESSOBJECTS)xmlSerializer.Deserialize(reader);
             return ((ADDRESSOBJECTS)xmlSerializer.Deserialize(reader));
         }
         private static HOUSES DeserializeHouses(XElement element)
@@ -155,6 +157,6 @@ namespace Migrations_bd
         }
 
 
-        
+
     }
 }

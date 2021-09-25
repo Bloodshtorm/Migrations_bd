@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Xml;
-using System.IO;
-using static ITEMSITEM;
- 
+
 
 namespace Migrations_bd
 {
-   public  class PereKid
+    public class PereKid
     {
-    
+
         IEnumerable<List<ITEMSITEM>> ReadFiles()
         {
             string connection = "C:/Users/Dmitry/Desktop/AS_ADM_HIER.XML";
@@ -27,7 +23,7 @@ namespace Migrations_bd
                     file.OBJECTID = reader.ReadElementContentAsLong();
 
                     reader.MoveToContent();
-                   
+
 
                     files.Add(file);
 
@@ -43,5 +39,5 @@ namespace Migrations_bd
             }
         }
     }
-    
+
 }

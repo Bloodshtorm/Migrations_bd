@@ -1,14 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
-
-namespace Migrations_bd
+﻿namespace Migrations_bd
 {
     public class gar_address_objects
     {
         public long ID { get; set; }
-        
+
         public long OBJECTID { get; set; }
 
         public string OBJECTGUID { get; set; }

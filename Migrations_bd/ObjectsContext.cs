@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace Migrations_bd
 {
-    class ApplicationContext:DbContext
+    class ApplicationContext : DbContext
     {
         public DbSet<gar_address_objects> gar_AddObjCon { get; set; }
         public DbSet<gar_houses> gar_HousesCon { get; set; }
